@@ -8,10 +8,10 @@ import javax.validation.Valid;
 import org.generation.blogPessoal.model.Usuario;
 import org.generation.blogPessoal.model.UsuarioLogin;
 import org.generation.blogPessoal.repository.UsuarioRepository;
+import org.generation.blogPessoal.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,13 +48,13 @@ public class UsuarioController {
     }
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<Usuario> postUsuario(@Validated @RequestBody Usuario usuario) {
+    public ResponseEntity<Usuario> postUsuario(@Valid @RequestBody Usuario usuario) {
         return service.cadastrarUsuario(usuario).map(resp -> ResponseEntity.status(HttpStatus.CREATED).body(resp))
                 .orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
     }
 
     @PutMapping("/atualizar")
-    public ResponseEntity<Usuario> putUsuario(@Validated @RequestBody Usuario usuario) {
+    public ResponseEntity<Usuario> putUsuario(@Valid @RequestBody Usuario usuario) {
         return service.atualizarUsuario(usuario).map(resp -> ResponseEntity.status(HttpStatus.OK).body(resp))
                 .orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
     }
